@@ -1,25 +1,37 @@
 import React from 'react';
-import {Button, TextInput, View, StyleSheet} from 'react-native';
+import {Button, TextInput, SafeAreaView, View, StyleSheet} from 'react-native';
 import Row from './Row.js'
 
 
 export default class ObjectsForm extends React.Component {
-	state ={
-		key: "Key",
-		value: "Value"
+	state = {
+		objectName: "",
+		objectValue: ""
 	}
 
-	addObject = () => ({
-		
-	})
+	handleObjectNameChange = objectName => {
+		this.setState({objectName})
+	}
+
+	handleObjectValueChange = objectValue => {
+		this.setState({objectValue})
+	}
+
+
+	handleAddObject = () => {
+		// this.props.addObject(this.state.objectName, this.state.objectValue)
+		this.props.onSubmit(this.state)
+	}
 
 	render() {
 		return (
-			<View>
-				<TextInput style={styles.input} value={this.state.key}/>
-				<TextInput style={styles.input} value={this.state.value}/>
-				<Button title={"Add Object"} onPress={this.addObject}/>
-			</View>
+			<SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+				<View>
+					<TextInput style={styles.input} placeholder={"Name"} value={this.state.objectName} onChangeText={this.handleObjectNameChange}/>
+					<TextInput style={styles.input} placeholder={"Value"} value={this.state.objectValue} onChangeText={this.handleObjectValueChange}/>
+					<Button title={"Add"} onPress={this.handleAddObject}/>
+				</View>
+			</SafeAreaView>
 			)
 
 	}
