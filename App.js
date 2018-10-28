@@ -14,7 +14,7 @@ export default class App extends React.Component {
 
 
   addObject = newObject  => {
-    this.setState(prevState => ({showAddObjectForm: false, objectsArray: [...prevState.objectsArray, newObject]}))
+      this.setState(prevState => ({showAddObjectForm: false, objectsArray: [...prevState.objectsArray, newObject]}))
   }
 
  toggleObjects = () => {

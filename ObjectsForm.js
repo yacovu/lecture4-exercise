@@ -6,7 +6,7 @@ import Row from './Row.js'
 export default class ObjectsForm extends React.Component {
 	state = {
 		objectName: "",
-		objectValue: ""
+		objectValue: null
 	}
 
 	handleObjectNameChange = objectName => {
@@ -14,13 +14,22 @@ export default class ObjectsForm extends React.Component {
 	}
 
 	handleObjectValueChange = objectValue => {
-		this.setState({objectValue})
+		this.setState({objectValue})		
 	}
 
 
 	handleAddObject = () => {
 		// this.props.addObject(this.state.objectName, this.state.objectValue)
-		this.props.onSubmit(this.state)
+		try {
+			var parsedArray = JSON.parse(this.state.objectValue)			
+			// console.log("object in objectsform: " + parsedArray)
+			this.props.onSubmit({...this.state, objectValue: parsedArray})
+		}
+		catch (exception) {
+			// console.log("***  exception " + exception)
+			this.props.onSubmit(this.state)
+		}
+		
 	}
 
 	render() {
