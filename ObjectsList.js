@@ -1,26 +1,43 @@
 import React from 'react'
-import {SectionList} from 'react-native'
+import {SectionList, Text} from 'react-native'
 import PropTypes from 'prop-types'
+import Row from './Row.js'
 
+// const renderItem = obj => {
 
+// }
 
-const ObjectsList = props => (
-	<SectionList
-      renderItem={props.renderItem}
-      renderSectionHeader={props.renderSectionHeader}
-      sections={[{
-        title: "a",
-        data: props.objectsArray,
-      }]}
-    />
-)
+const renderItem = obj => <Row objectValue={obj.item} />
 
-ObjectsList.PropTypes = {
-	renderItem: PropTypes.func,
-	renderSectionHeader: PropTypes.func,
-	objectsArray: PropTypes.array
+const renderSectionHeader = obj => <Text> {obj.section.title} </Text>
+
+const sections = props => {
+	return(
+		props.objectsArray.map(object => ({
+			title: object.objectName,
+			data: [object.objectValue]
+		}))
+	)
 }
 
 
+const ObjectsList = props => {
+	const sectionsArr = sections(props)
+	console.log("sectionArr: " + JSON.stringify(sectionsArr))
+	
+	return(
+		 <SectionList
+	      renderItem={renderItem}
+	      renderSectionHeader={renderSectionHeader}
+		  sections={sections(props)}
+	    />
+    )
+}
+
+ObjectsList.propTypes = {
+	objectsArray: PropTypes.array
+}
 
 export default ObjectsList
+
+
